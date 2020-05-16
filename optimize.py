@@ -1,17 +1,22 @@
 import pygame
 import random
 
+
 class Sort:
-    def __init__(self):
+
+    WIDTH = 500
+    HEIGHT = 500
+    WHITE = (255, 255, 255)
+
+    def __init__(self, width = WIDTH, height = HEIGHT):
         pygame.init()
-        self.width = 500
-        self.height = 500
-        self.WHITE = (255, 255, 255)
+        self.width = width
+        self.height = height
         self.display_surface = pygame.display.set_mode((self.width, self.height))
-        pygame.display.update()
-        pygame.display.set_caption('Pygame')
         self.clock = pygame.time.Clock()
-        self.crashed = False
+        pygame.display.set_caption('Algorithm Visualizer')
+
+        pygame.display.update()
         self.arr = [random.randrange(10,45)*10 for x in range(30)]
         self.clr = [(random.randrange(100,255), random.randrange(100,255), random.randrange(100,255)) for i in range(30)]
         self.arrX = [(x+1)*15 for x in range(30)]
@@ -20,26 +25,30 @@ class Sort:
     def draw(self, x, y, clr):
         pygame.draw.line(self.display_surface, clr, (x, self.height), (x, self.height - y), 3)
     
+    def bubble(self):
+        if self.arr[self.j] < self.arr[self.j+1]:
+            self.arr[self.j], self.arr[self.j+1] = self.arr[self.j+1], self.arr[self.j]
+            self.clr[self.j], self.clr[self.j+1] = self.clr[self.j+1], self.clr[self.j]
+        if self.j < len(self.arr)-2:
+            self.j += 1
+        else:
+            self.j = 0
+
+    def display(self):
+        comb = zip(self.arr, self.clr, self.arrX)
+        self.display_surface.fill((0,0,0))
+        for y, c, x in comb:
+            self.draw(x, y, c)
+
     def game(self):
-        while not self.crashed:
+        while not False:
             for event in pygame.event.get():
-                print(event)
+                #print(event)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-            comb = zip(self.arr, self.clr, self.arrX)
-            self.display_surface.fill((0,0,0))
-            for y, c, x in comb:
-                self.draw(x, y, c)
-            pygame.time.delay(5)
-            if self.arr[self.j] < self.arr[self.j+1]:
-                self.arr[self.j], self.arr[self.j+1] = self.arr[self.j+1], self.arr[self.j]
-                self.clr[self.j], self.clr[self.j+1] = self.clr[self.j+1], self.clr[self.j]
-            if self.j < len(self.arr)-2:
-                self.j += 1
-            else:
-                self.j = 0
-        
+            self.display()
+            self.bubble()
             print(self.arr)
             pygame.display.update()
             self.clock.tick(20)
