@@ -41,6 +41,7 @@ class Sort:
                     self.clr[j], self.clr[j+1] = self.clr[j+1], self.clr[j]
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
+                pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[j+1], self.height), (self.arrX[j+1], self.height - self.arr[j+1]), 3)
                 pygame.time.delay(60)
                 pygame.display.update()
         self.running = False

@@ -39,7 +39,7 @@ while Game:
         pygame.display.update()
 
     else:
-        
+
         for i in range(len(arr)):
             for j in range(len(arr)-i-1):
                 check()
@@ -48,7 +48,8 @@ while Game:
                     clr[j], clr[j+1] = clr[j+1], clr[j]
                 display_surface.fill((0,0,0))
                 draw(arrX, arr, clr)
-                pygame.time.delay(60)
+                pygame.draw.line(display_surface, WHITE, (arrX[j+1], height), (arrX[j+1], height - arr[j+1]), 3)
+                pygame.time.delay(50)
                 pygame.display.update()
         running = False
 
