@@ -14,12 +14,16 @@ class Sort:
         self.display_surface = pygame.display.set_mode((self.width, self.height))
         self.clock = pygame.time.Clock()
         pygame.display.set_caption('Algorithm Visualizer')
-
         pygame.display.update()
+        #self.arr = [random.randrange(10,45)*10 for x in range(30)]
+        #self.clr = [(random.randrange(100,255), random.randrange(100,255), random.randrange(100,255)) for i in range(30)]
+        #self.arrX = [(x+1)*15 for x in range(30)]
+        self.running = False
+
+    def initArr(self):
         self.arr = [random.randrange(10,45)*10 for x in range(30)]
         self.clr = [(random.randrange(100,255), random.randrange(100,255), random.randrange(100,255)) for i in range(30)]
         self.arrX = [(x+1)*15 for x in range(30)]
-        self.running = False
 
     def draw(self, x, y, clr):
         comb = zip(x, y, clr)
@@ -42,25 +46,53 @@ class Sort:
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
                 pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[j+1], self.height), (self.arrX[j+1], self.height - self.arr[j+1]), 3)
-                pygame.time.delay(60)
+                pygame.time.delay(30)
                 pygame.display.update()
         self.running = False
 
+    def selectionSort(self):
+        for i in range(len(self.arr)):
+            curr, currID = self.arr[i], i
+            for j in range(i+1, len(self.arr)):
+                self.check()
+                temp = self.arr[j]
+                if temp < curr:
+                    curr, currID = temp, j
+                self.display_surface.fill((0,0,0))
+                self.draw(self.arrX, self.arr, self.clr)
+                pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[j], self.height), (self.arrX[j], self.height - self.arr[j]), 3)
+                pygame.time.delay(30)
+                pygame.display.update()
+            self.arr[currID], self.arr[i] = self.arr[i], curr
+        self.running = False
+
     def game(self):
+        self.initArr()
+        count = 0
         while True:
-            keys = pygame.key.get_pressed() 
+            keys = pygame.key.get_pressed()
             self.check()
             if keys[pygame.K_SPACE]:
+                count = 1
+                self.initArr()
                 self.running = True
-
-            if self.running == False:
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
                 pygame.display.update()
 
-            else:
-                self.bubbleSort()
+            if self.running == False:
+                self.display_surface.fill((0,0,0))
+                if count != 0:
+                    self.draw(self.arrX, self.arr, self.clr)
+                pygame.display.update()
 
+            elif keys[pygame.K_s]:
+                self.selectionSort()
+            elif keys[pygame.K_b]:
+                self.bubbleSort()
+            elif keys[pygame.K_q]:
+                pygame.quit()
+                quit()
             self.clock.tick(20)
 
         pygame.quit()
