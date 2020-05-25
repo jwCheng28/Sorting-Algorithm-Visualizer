@@ -5,6 +5,6 @@ It is sometimes hard to conceptualize what exactly are algorithms doing, so havi
 
 ## Sorting Algorithm (In Progress)
 
-### Bubble Sort
+### 1. Bubble Sort
 
-### Selection Sort
+### 2. Selection Sort
