@@ -20,7 +20,7 @@ class Sort:
     def initArr(self):
         self.arr = [random.randrange(10,45)*10 for x in range(60)]
         self.clr2 = [(random.randrange(100,255), random.randrange(100,255), random.randrange(100,255)) for i in range(60)]
-        self.clr = [(random.randrange(145,235), random.randrange(145,235), random.randrange(145,255))] * 60
+        self.clr = [(random.randrange(115,245), random.randrange(125,245), random.randrange(115,255))] * 60
         self.arrX = [(x+1)*8 for x in range(60)]
 
     def draw(self, x, y, clr):
@@ -74,6 +74,8 @@ class Sort:
             self.mergeSort(arr, lbound, mid)
             self.mergeSort(arr, mid+1, rbound)
             self.merge(arr, lbound, mid, mid+1, rbound)
+        self.running = False
+
 
     def merge(self, arr, lStart, lEnd, rStart, rEnd):
         self.check()
@@ -101,6 +103,32 @@ class Sort:
         pygame.time.delay(100)
         pygame.display.update()
 
+    def cocktailSort(self):
+        n = 0
+        m = len(self.arr)
+        while (n < m):
+            self.check()
+            for i in range(n, m - 1):
+                if (self.arr[i] > self.arr[i+1]):
+                    self.arr[i], self.arr[i+1] = self.arr[i+1], self.arr[i]
+                    self.display_surface.fill((0,0,0))
+                    self.draw(self.arrX, self.arr, self.clr)
+                    pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i+1], self.height), (self.arrX[i+1], self.height - self.arr[i+1]), 3)
+                    pygame.time.delay(20)
+                    pygame.display.update()
+            m -= 1
+            for i in range(m - 1, n - 1, -1):
+                if (self.arr[i] > self.arr[i+1]):
+                    self.arr[i], self.arr[i+1] = self.arr[i+1], self.arr[i]
+                    self.display_surface.fill((0,0,0))
+                    self.draw(self.arrX, self.arr, self.clr)
+                    pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i+1], self.height), (self.arrX[i+1], self.height - self.arr[i+1]), 3)
+                    pygame.time.delay(20)
+                    pygame.display.update()
+            n += 1
+        self.running = False
+
+
     def game(self):
         self.initArr()
         count = 0
@@ -127,6 +155,8 @@ class Sort:
                 self.bubbleSort()
             elif keys[pygame.K_m]:
                 self.mergeSort(self.arr, 0, len(self.arr)-1)
+            elif keys[pygame.K_c]:
+                self.cocktailSort()
             elif keys[pygame.K_q]:
                 pygame.quit()
                 quit()
