@@ -1,7 +1,7 @@
 # Sorting Algorithm Visualizer
 
 ## Basic Idea
-It is sometimes hard to conceptualize what exactly are algorithms doing, so having visualizations are often very helpful. So this program will be implementing several sorting in Python using the Pygame library to help us visualize these sorting algorithms. Currently the sorting algorithms that are implemented are Bubble Sort, Selection Sort, and Merge Sort.
+It is sometimes hard to conceptualize what exactly are algorithms doing, so having visualizations are often very helpful. So this program will be implementing several sorting in Python using the Pygame library to help us visualize these sorting algorithms. Currently the sorting algorithms that are implemented are Bubble Sort, Selection Sort, and Merge Sort. There are previews of the visualization of each sorting algorithm provided below (Beware that some of them are sped up).
 
 ## How to Use
 After runnning the python script `python Algo_visual.py` you'll be loaded in to a blank canvas in pygame.
