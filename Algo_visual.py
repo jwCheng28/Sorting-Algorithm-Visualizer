@@ -28,6 +28,10 @@ class Sort:
         for x, y, c in comb:
             pygame.draw.line(self.display_surface, c, (x, self.height), (x, self.height - y), 3)
 
+    def update(self, time):
+        pygame.time.delay(time)
+        pygame.display.update()
+
     def check(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,9 +48,10 @@ class Sort:
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
                 pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[j+1], self.height), (self.arrX[j+1], self.height - self.arr[j+1]), 3)
-                pygame.time.delay(30)
-                pygame.display.update()
-        self.running = False
+                self.update(30)
+        self.display_surface.fill((0,0,0))
+        self.draw(self.arrX, self.arr, self.clr)
+        self.update(30)
 
     def selectionSort(self):
         for i in range(len(self.arr)):
@@ -61,11 +66,12 @@ class Sort:
                 self.draw(self.arrX, self.arr, self.clr)
                 pygame.draw.line(self.display_surface, (255, 0, 0), (self.arrX[currID], self.height), (self.arrX[currID], self.height - self.arr[currID]), 3)
                 pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[j], self.height), (self.arrX[j], self.height - self.arr[j]), 3)
-                pygame.time.delay(30)
-                pygame.display.update()
+                self.update(30)
             self.arr[currID], self.arr[i] = self.arr[i], curr
             self.clr[i] = (255, 0, 0)
-        self.running = False
+        self.display_surface.fill((0,0,0))
+        self.draw(self.arrX, self.arr, self.clr)
+        self.update(30)
 
     def mergeSort(self, arr, lbound, rbound):
         mid = (lbound + rbound)//2
@@ -74,8 +80,6 @@ class Sort:
             self.mergeSort(arr, lbound, mid)
             self.mergeSort(arr, mid+1, rbound)
             self.merge(arr, lbound, mid, mid+1, rbound)
-        self.running = False
-
 
     def merge(self, arr, lStart, lEnd, rStart, rEnd):
         self.check()
@@ -100,8 +104,7 @@ class Sort:
             j += 1
         self.display_surface.fill((0,0,0))
         self.draw(self.arrX, self.arr, self.clr)
-        pygame.time.delay(100)
-        pygame.display.update()
+        self.update(100)
 
     def cocktailSort(self):
         n = 0
@@ -114,8 +117,7 @@ class Sort:
                     self.display_surface.fill((0,0,0))
                     self.draw(self.arrX, self.arr, self.clr)
                     pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i+1], self.height), (self.arrX[i+1], self.height - self.arr[i+1]), 3)
-                    pygame.time.delay(20)
-                    pygame.display.update()
+                    self.update(20)
             m -= 1
             for i in range(m - 1, n - 1, -1):
                 if (self.arr[i] > self.arr[i+1]):
@@ -123,11 +125,29 @@ class Sort:
                     self.display_surface.fill((0,0,0))
                     self.draw(self.arrX, self.arr, self.clr)
                     pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i+1], self.height), (self.arrX[i+1], self.height - self.arr[i+1]), 3)
-                    pygame.time.delay(20)
-                    pygame.display.update()
+                    self.update(20)
             n += 1
-        self.running = False
+        self.display_surface.fill((0,0,0))
+        self.draw(self.arrX, self.arr, self.clr)
+        self.update(20)
 
+
+    def gnomeSort(self):
+        i = 1
+        while(i < len(self.arr)):
+            self.check()
+            if (self.arr[i-1] <= self.arr[i]):
+                i += 1
+            else:
+                self.arr[i-1], self.arr[i] = self.arr[i], self.arr[i-1]
+                self.display_surface.fill((0,0,0))
+                self.draw(self.arrX, self.arr, self.clr)
+                pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i], self.height), (self.arrX[i], self.height - self.arr[i]), 3)
+                self.update(20)
+                if (i > 1): i -= 1
+        self.display_surface.fill((0,0,0))
+        self.draw(self.arrX, self.arr, self.clr)
+        self.update(20)
 
     def game(self):
         self.initArr()
@@ -157,6 +177,8 @@ class Sort:
                 self.mergeSort(self.arr, 0, len(self.arr)-1)
             elif keys[pygame.K_c]:
                 self.cocktailSort()
+            elif keys[pygame.K_g]:
+                self.gnomeSort()
             elif keys[pygame.K_q]:
                 pygame.quit()
                 quit()
