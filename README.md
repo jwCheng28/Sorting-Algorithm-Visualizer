@@ -5,6 +5,7 @@ It is sometimes hard to conceptualize what exactly are algorithms doing, so havi
 
 ## How to Use
 To try out the script simply clone the repository and run the script by `python Algo_visual.py`.
+
 After runnning the python script you'll be loaded in to a blank canvas in pygame. Use the following commands to see the sorts.
 - Press the 'spacebar' to load the screen, or re-randomize the bars.
 - Press 'b' to see Bubble Sort
