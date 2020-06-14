@@ -15,7 +15,7 @@ After runnning the python script you'll be loaded in to a blank canvas in pygame
 - Press 'g' to see Gnome Sort
 - Press 'q' to quit the program
 
-## Sorting Algorithm (In Progress)
+## Sorting Algorithms
 
 ### 1. Bubble Sort
 ![GIF](./gifs/bs.gif)
