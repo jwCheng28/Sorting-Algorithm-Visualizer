@@ -18,15 +18,29 @@ class Sort:
         self.running = False
 
     def initArr(self):
+        '''
+        Description:
+         - Initialize Array of Bar Height
+         - Initialize Array of Colors
+         - Initialize Array of Bar Loc
+        '''
         self.arr = [random.randrange(10,45)*10 for x in range(60)]
-        self.clr2 = [(random.randrange(100,255), random.randrange(100,255), random.randrange(100,255)) for i in range(60)]
         self.clr = [(random.randrange(115,245), random.randrange(125,245), random.randrange(115,255))] * 60
         self.arrX = [(x+1)*8 for x in range(60)]
 
     def draw(self, x, y, clr):
+        '''
+        Draw Bar with corresponding Attr
+        '''
         comb = zip(x, y, clr)
         for x, y, c in comb:
             pygame.draw.line(self.display_surface, c, (x, self.height), (x, self.height - y), 3)
+
+    def _drawcur(self, index, color=WHITE):
+        pygame.draw.line(
+            self.display_surface, color, 
+            (self.arrX[index], self.height), (self.arrX[index], self.height - self.arr[index]), 3
+            )
 
     def update(self, time):
         pygame.time.delay(time)
@@ -47,7 +61,8 @@ class Sort:
                     self.clr[j], self.clr[j+1] = self.clr[j+1], self.clr[j]
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
-                pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[j+1], self.height), (self.arrX[j+1], self.height - self.arr[j+1]), 3)
+                # Show current location
+                self._drawcur(index=j+1)
                 self.update(30)
         self.display_surface.fill((0,0,0))
         self.draw(self.arrX, self.arr, self.clr)
@@ -64,8 +79,8 @@ class Sort:
 
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
-                pygame.draw.line(self.display_surface, (255, 0, 0), (self.arrX[currID], self.height), (self.arrX[currID], self.height - self.arr[currID]), 3)
-                pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[j], self.height), (self.arrX[j], self.height - self.arr[j]), 3)
+                self._drawcur(index=currID, color=(255, 0, 0))
+                self._drawcur(index=j)
                 self.update(30)
             self.arr[currID], self.arr[i] = self.arr[i], curr
             self.clr[i] = (255, 0, 0)
@@ -106,31 +121,31 @@ class Sort:
         self.draw(self.arrX, self.arr, self.clr)
         self.update(100)
 
+    def _cocktail(self, i):
+        '''
+        Helper Function for Cocktail Sort
+        '''
+        if (self.arr[i] > self.arr[i+1]):
+            self.arr[i], self.arr[i+1] = self.arr[i+1], self.arr[i]
+            self.display_surface.fill((0,0,0))
+            self.draw(self.arrX, self.arr, self.clr)
+            self._drawcur(index=i+1)
+            self.update(20)
+
     def cocktailSort(self):
         n = 0
         m = len(self.arr)
         while (n < m):
             self.check()
             for i in range(n, m - 1):
-                if (self.arr[i] > self.arr[i+1]):
-                    self.arr[i], self.arr[i+1] = self.arr[i+1], self.arr[i]
-                    self.display_surface.fill((0,0,0))
-                    self.draw(self.arrX, self.arr, self.clr)
-                    pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i+1], self.height), (self.arrX[i+1], self.height - self.arr[i+1]), 3)
-                    self.update(20)
+                self._cocktail(i)
             m -= 1
             for i in range(m - 1, n - 1, -1):
-                if (self.arr[i] > self.arr[i+1]):
-                    self.arr[i], self.arr[i+1] = self.arr[i+1], self.arr[i]
-                    self.display_surface.fill((0,0,0))
-                    self.draw(self.arrX, self.arr, self.clr)
-                    pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i+1], self.height), (self.arrX[i+1], self.height - self.arr[i+1]), 3)
-                    self.update(20)
+                self._cocktail(i)
             n += 1
         self.display_surface.fill((0,0,0))
         self.draw(self.arrX, self.arr, self.clr)
         self.update(20)
-
 
     def gnomeSort(self):
         i = 1
@@ -142,30 +157,30 @@ class Sort:
                 self.arr[i-1], self.arr[i] = self.arr[i], self.arr[i-1]
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
-                pygame.draw.line(self.display_surface, (255, 255, 255), (self.arrX[i], self.height), (self.arrX[i], self.height - self.arr[i]), 3)
+                self._drawcur(index=i)
                 self.update(20)
                 if (i > 1): i -= 1
         self.display_surface.fill((0,0,0))
         self.draw(self.arrX, self.arr, self.clr)
         self.update(20)
 
-    def game(self):
+    def startVisual(self):
         self.initArr()
-        count = 0
+        start = 0
         while True:
             keys = pygame.key.get_pressed()
             self.check()
             if keys[pygame.K_SPACE]:
-                count = 1
+                start = 1
                 self.initArr()
                 self.running = True
                 self.display_surface.fill((0,0,0))
                 self.draw(self.arrX, self.arr, self.clr)
                 pygame.display.update()
 
-            if self.running == False:
+            if not self.running:
                 self.display_surface.fill((0,0,0))
-                if count != 0:
+                if start:
                     self.draw(self.arrX, self.arr, self.clr)
                 pygame.display.update()
 
@@ -182,10 +197,9 @@ class Sort:
             elif keys[pygame.K_q]:
                 pygame.quit()
                 quit()
+
             self.clock.tick(15)
 
-        pygame.quit()
-
-
-s = Sort()
-s.game()
+if __name__ == "__main__":
+    sortVisualizer = Sort()
+    sortVisualizer.startVisual()
