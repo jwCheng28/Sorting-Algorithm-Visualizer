@@ -14,11 +14,11 @@ class Display:
     def createBars(self):
         self.barLoc = [i*8 for i in range(1, self.barAmount+1)]
         self.barH = [random.randrange(*self.heightRange)*10 for i in range(self.barAmount)]
-        self.barCLR = [
+        self.barCLR = [(
             random.randrange(*self.colorRange),
             random.randrange(*self.colorRange),
             random.randrange(*self.colorRange)
-        ] * self.barAmount
+        )] * self.barAmount
 
     def drawBars(self, xLocs=None, yLocs=None, colors=None):
         if not xLocs and not yLocs and not colors:
