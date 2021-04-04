@@ -24,7 +24,7 @@ After runnning the python script you'll be loaded in to a blank canvas in pygame
 ![GIF](./gifs/ss.gif)
 
 ### 3. Merge Sort
-![GIF](./gifs/ms.gif)
+![GIF](./gifs/ms2.gif)
 
 ### 4. Cocktail Sort
 ![GIF](./gifs/cs.gif)
