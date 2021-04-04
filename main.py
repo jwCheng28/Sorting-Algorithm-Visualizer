@@ -44,6 +44,8 @@ while True:
         algo.mergeSort(algo.barH, 0, algo.barAmount-1)
     elif keys[pygame.K_c]:
         algo.cocktailSort()
+    elif keys[pygame.K_g]:
+        algo.gnomeSort()
     elif keys[pygame.K_q]:
         pygame.quit()
         quit()

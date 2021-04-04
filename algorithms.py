@@ -110,3 +110,25 @@ class Algorithms(Display):
                 self._cocktail(i)
             n += 1
 
+    def gnomeSort(self):
+        i = 1
+        last_sort = 0
+        while(i < self.barAmount):
+            self.checkQuit()
+            # If prev is less or equal to cur, continue iteration
+            if (self.barH[i-1] <= self.barH[i]):
+                i += 1
+            else:
+                # Swap Loc if prev is greater than cur
+                self.barH[i-1], self.barH[i] = self.barH[i], self.barH[i-1]
+
+                # Since we swapped the index, go back 1 iteration
+                if (i > 1): i -= 1
+
+                # Draw the visual
+                self.display_surface.fill((0,0,0))
+                self.drawBars()
+                self.recolorIndex(index=i+1)
+                last_sort = i+1
+                self.update(20)
+        self.recolorIndex(index=last_sort, color=self.barCLR[0])
