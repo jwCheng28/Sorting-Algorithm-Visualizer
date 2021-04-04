@@ -19,6 +19,7 @@ class Algorithms(Display):
                 # Draw current index location
                 self.recolorIndex(index=j+1)
                 self.update(30)
+        self.recolorIndex(index=1, color=self.barCLR[0])
 
     def selectionSort(self):
         N = self.barAmount
@@ -33,7 +34,7 @@ class Algorithms(Display):
 
                 # Draw Visual
                 self.display_surface.fill((0,0,0))
-                self.draw(self.barLoc, self.barH, self.barCLR)
+                self.drawBars()
                 # Draw the largest index currently found
                 self.recolorIndex(index=smallestIndex, color=(255, 0, 0))
                 # Draw the index of current iteration
@@ -109,6 +110,9 @@ class Algorithms(Display):
             for i in range(m - 1, n - 1, -1):
                 self._cocktail(i)
             n += 1
+
+        self.display_surface.fill((0,0,0))
+        self.drawBars()
 
     def gnomeSort(self):
         i = 1
