@@ -48,3 +48,37 @@ class Algorithms(Display):
             self.display_surface.fill((0,0,0))
             self.drawBars(self.barLoc, self.barH, self.barCLR)
             self.update(30)
+
+    def mergeSort(self, arr, lbound, rbound):
+        self.checkQuit()
+        # if left bound is less than right bound, recursive breakdown the array, sort, then merge
+        if lbound < rbound:
+            mid = (lbound + rbound)//2
+            self.mergeSort(arr, lbound, mid)
+            self.mergeSort(arr, mid+1, rbound)
+            self.merge(arr, lbound, mid, mid+1, rbound)
+
+    def merge(self, arr, lStart, lEnd, rStart, rEnd):
+        self.checkQuit()
+        # Merge array in sorted order
+        i, j = lStart, rStart
+        res = []
+        while i <= lEnd and j <= rEnd:
+            if arr[i] < arr[j]:
+                res.append(arr[i])
+                i += 1
+            else:
+                res.append(arr[j])
+                j += 1
+        while i <= lEnd:
+            res.append(arr[i])
+            i += 1
+        while j <= rEnd:
+            res.append(arr[j])
+            j += 1
+
+        for j, i in enumerate(range(lStart, rEnd+1)):
+            self.barH[i] = res[j]
+            self.display_surface.fill((0,0,0))
+            self.drawBars(self.barLoc, self.barH, self.barCLR)
+        self.update(100)

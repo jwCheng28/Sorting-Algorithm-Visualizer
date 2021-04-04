@@ -40,6 +40,8 @@ while True:
         algo.selectionSort()
     elif keys[pygame.K_b]:
         algo.bubbleSort()
+    elif keys[pygame.K_m]:
+        algo.mergeSort(algo.barH, 0, algo.barAmount-1)
     elif keys[pygame.K_q]:
         pygame.quit()
         quit()
