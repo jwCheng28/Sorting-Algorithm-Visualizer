@@ -83,7 +83,7 @@ class Algorithms(Display):
             self.barH[i] = res[j]
             self.display_surface.fill((0,0,0))
             self.drawBars(self.barLoc, self.barH, self.barCLR)
-        self.update(100)
+            self.update(15)
 
     def _cocktail(self, i):
         # If the current bar is bigger than the next, swap these 2 bars
