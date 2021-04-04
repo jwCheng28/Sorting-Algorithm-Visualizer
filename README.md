@@ -18,16 +18,16 @@ After runnning the python script you'll be loaded in to a blank canvas in pygame
 ## Sorting Algorithms
 
 ### 1. Bubble Sort
-![GIF](./gifs/bs.gif)
+<img src="/gifs/bs.gif?raw=true" width="500px">
 
 ### 2. Selection Sort
-![GIF](./gifs/ss.gif)
+<img src="/gifs/ss.gif?raw=true" width="500px">
 
 ### 3. Merge Sort
-![GIF](./gifs/ms2.gif)
+<img src="/gifs/ms2.gif?raw=true" width="500px">
 
 ### 4. Cocktail Sort
-![GIF](./gifs/cs.gif)
+<img src="/gifs/cs.gif?raw=true" width="500px">)
 
 ### 5. Gnome Sort
-![GIF](./gifs/gs.gif)
+<img src="/gifs/gs.gif?raw=true" width="500px">
