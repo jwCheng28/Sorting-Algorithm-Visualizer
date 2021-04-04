@@ -14,7 +14,7 @@ class Algorithms(Display):
 
                 # Redraw Visual
                 self.display_surface.fill((0,0,0))
-                self.drawBars(self.barLoc, self.barH, self.barCLR)
+                self.drawBars()
 
                 # Draw current index location
                 self.recolorIndex(index=j+1)
@@ -46,7 +46,7 @@ class Algorithms(Display):
 
             # Redraw the Visual
             self.display_surface.fill((0,0,0))
-            self.drawBars(self.barLoc, self.barH, self.barCLR)
+            self.drawBars()
             self.update(30)
 
     def mergeSort(self, arr, lbound, rbound):
@@ -77,8 +77,36 @@ class Algorithms(Display):
             res.append(arr[j])
             j += 1
 
+        # Redraw the visual with the sorted order
         for j, i in enumerate(range(lStart, rEnd+1)):
             self.barH[i] = res[j]
             self.display_surface.fill((0,0,0))
             self.drawBars(self.barLoc, self.barH, self.barCLR)
         self.update(100)
+
+    def _cocktail(self, i):
+        # If the current bar is bigger than the next, swap these 2 bars
+        if (self.barH[i] > self.barH[i+1]):
+            self.barH[i], self.barH[i+1] = self.barH[i+1], self.barH[i]
+
+            # Draw the visual
+            self.display_surface.fill((0,0,0))
+            self.drawBars()
+            self.recolorIndex(index=i+1)
+            self.update(20)
+
+    def cocktailSort(self):
+        n, m = 0, self.barAmount
+        while (n < m):
+            self.checkQuit()
+
+            # Sort left to right
+            for i in range(n, m - 1):
+                self._cocktail(i)
+            m -= 1
+
+            # Sort right to left
+            for i in range(m - 1, n - 1, -1):
+                self._cocktail(i)
+            n += 1
+
