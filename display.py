@@ -9,6 +9,7 @@ class Display:
         self.colorRange = barColorRange
         self.barAmount = barAmount
         self.display_surface = display_surface
+        self.createBars()
 
     def createBars(self):
         self.barLoc = [i*8 for i in range(1, self.barAmount+1)]
