@@ -29,7 +29,7 @@ After runnning the python script you'll be loaded in to a blank canvas in pygame
 <img src="/gifs/ms2.gif?raw=true" width="500px">
 
 ### 4. Cocktail Sort
-<img src="/gifs/cs.gif?raw=true" width="500px">)
+<img src="/gifs/cs.gif?raw=true" width="500px">
 
 ### 5. Gnome Sort
-<img src="/gifs/gs.gif?raw=true" width="500px">
+<img src="/gifs/gs.gif" width="500px">
